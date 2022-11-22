@@ -5,14 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "skills")
+@Table(name = "applications")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Skill {
+public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +19,15 @@ public class Skill {
 
     private String name;
 
-    @ManyToMany(mappedBy = "skills")
-    private Set<Advertisement> advertisements;
+    private String surname;
+
+    private  String email;
+
+    private String introduction;
+
+    private String path;
 
     @ManyToOne
-    private Level level;
+    private Advertisement advertisement; //wiele aplikacji do 1 ogloszenia
+
 }

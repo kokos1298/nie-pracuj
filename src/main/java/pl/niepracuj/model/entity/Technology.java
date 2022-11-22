@@ -3,26 +3,21 @@ package pl.niepracuj.model.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.niepracuj.model.enums.TechnologyEnum;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "skills")
+@Table(name = "technologies")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Skill {
+public class Technology {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    @ManyToMany(mappedBy = "skills")
-    private Set<Advertisement> advertisements;
-
-    @ManyToOne
-    private Level level;
+    @Enumerated(EnumType.STRING) //trzeba powiedziec ze enum to string
+    private TechnologyEnum name;
 }
