@@ -1,8 +1,6 @@
 package pl.niepracuj.model.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,7 +8,9 @@ import javax.persistence.*;
 @Table(name = "companies")
 @Getter
 @Setter
+@Builder //potrzebuje tez @allargsconstrukter - razem musza byc !
 @NoArgsConstructor
+@AllArgsConstructor
 public class Company {
 
     @Id
@@ -19,6 +19,10 @@ public class Company {
 
     private String name;
 
+    private String email;
+
     private Integer size;
+
+    private Integer address;
 
 }
