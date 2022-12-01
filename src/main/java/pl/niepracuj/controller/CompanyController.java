@@ -8,7 +8,7 @@ import pl.niepracuj.service.company.CompanyService;
 import java.util.List;
 
 @RestController
-@RequestMapping("company")
+@RequestMapping("/company")
 @RequiredArgsConstructor
 public class CompanyController {
 
