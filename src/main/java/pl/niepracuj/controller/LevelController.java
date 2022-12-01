@@ -14,7 +14,6 @@ public class LevelController {
 
     private final LevelService levelService;
 
-
     @GetMapping("/all")
     public List<LevelDto> getLevels() {
         return levelService.getAllLevels();
