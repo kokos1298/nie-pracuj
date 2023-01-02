@@ -1,8 +1,6 @@
 package pl.niepracuj.model.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -12,6 +10,8 @@ import java.util.Set;
 @Table(name = "advertisements")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Advertisement {
 
@@ -51,5 +51,5 @@ public class Advertisement {
             joinColumns = @JoinColumn(name = "skill_id"),
             inverseJoinColumns = @JoinColumn(name = "adv_id")
     )
-    Set<Skill> skills;
+    private Set<Skill> skills;
 }

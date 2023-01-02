@@ -2,6 +2,7 @@ package pl.niepracuj.model.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 import pl.niepracuj.model.dto.SkillDto;
 import pl.niepracuj.model.entity.Advertisement;
@@ -41,5 +42,17 @@ public class AdvertisementMapper {
     //metoda robiaca seta ze skillsdto
     private Set<SkillDto> getSkills(Set<Skill> skills) {
         return skills.stream().map(skillMapper::toDto).collect(Collectors.toSet());
+    }
+
+    //mapowanie bezposrednie
+    public Advertisement toNewEntity(AdvertisementCreateDto advertisementCreateDto) {
+        return Advertisement.builder()
+                .name(advertisementCreateDto.getName())
+                .expireDate(advertisementCreateDto.getExpireDate())
+                .salaryFrom(advertisementCreateDto.getSalaryFrom())
+                .salaryTo(advertisementCreateDto.getSalaryTo())
+                .description(advertisementCreateDto.getDescription())
+                .build();
+
     }
 }
