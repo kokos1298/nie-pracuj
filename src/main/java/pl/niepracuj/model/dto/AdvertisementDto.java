@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AdvertisementDto { //dto do wypychania wszystkich elementow ogloszenia
 
-    private Long id; // do zwracana co to za ogloszenia
+    private Long id; // do zwracana co to za ogloszenia - response
 
     private String name;
 

@@ -11,7 +11,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdvertisementCreateDto { //dto do stworzenia ogloszenia
+public class AdvertisementCreateDto { //dto do stworzenia ogloszenia, wysylany request, nigdzie nie zwracany
 
     private String name;
 

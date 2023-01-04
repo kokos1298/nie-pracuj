@@ -6,6 +6,7 @@ import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 import pl.niepracuj.service.advertisement.AdvertisementService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController

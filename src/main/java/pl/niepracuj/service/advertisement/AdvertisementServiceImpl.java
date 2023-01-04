@@ -2,9 +2,13 @@ package pl.niepracuj.service.advertisement;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.niepracuj.exception.exceptions.EntityNotFoundException;
+import pl.niepracuj.exception.exceptions.ResourceNotFoundException;
+import pl.niepracuj.exception.messages.ExceptionMessages;
 import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 import pl.niepracuj.model.entity.Advertisement;
+import pl.niepracuj.model.entity.Company;
 import pl.niepracuj.model.entity.Skill;
 import pl.niepracuj.model.mapper.AdvertisementMapper;
 import pl.niepracuj.model.mapper.SkillMapper;
@@ -48,10 +52,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     public AdvertisementDto createAdvertisement(AdvertisementCreateDto createDto) {
         Advertisement advertisement = advertisementMapper.toNewEntity(createDto);
         advertisement.setPublishDate(Instant.now());
-        advertisement.setCompany(companyRepository.findById(createDto.getCompanyId()).orElseThrow(RuntimeException::new));
-        advertisement.setTechnology(technologyRepository.findById(createDto.getTechnologyId()).orElseThrow(RuntimeException::new));
-        advertisement.setSeniority(seniorityRepository.findById(createDto.getSeniorityId()).orElseThrow(RuntimeException::new));
-        advertisement.setCity(cityRepository.findById(createDto.getCityIdy()).orElseThrow(RuntimeException::new));
+        advertisement.setCompany(companyRepository.findById(createDto.getCompanyId())
+                .orElseThrow(() -> new EntityNotFoundException("Company", createDto.getCompanyId())));
+        advertisement.setTechnology(technologyRepository.findById(createDto.getTechnologyId())
+                .orElseThrow(() -> new EntityNotFoundException("Technology", createDto.getTechnologyId())));
+        advertisement.setSeniority(seniorityRepository.findById(createDto.getSeniorityId())
+                .orElseThrow(() -> new EntityNotFoundException("Seniority", createDto.getSeniorityId())));
+        advertisement.setCity(cityRepository.findById(createDto.getCityIdy())
+                .orElseThrow(() -> new EntityNotFoundException("City", createDto.getCityIdy())));
 
         List<Skill> skills = createDto.getSkills().stream()
                 .map(skillCreateDto -> {
