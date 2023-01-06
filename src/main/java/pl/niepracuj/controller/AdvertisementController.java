@@ -22,7 +22,7 @@ public class AdvertisementController {
     }
 
     @PostMapping("/create") //wkladanie nowych ogloszen
-    public AdvertisementDto createAdvertisement(@RequestBody AdvertisementCreateDto advertisementCreateDto) {
+    public AdvertisementDto createAdvertisement(@RequestBody @Valid AdvertisementCreateDto advertisementCreateDto) {
         return advertisementService.createAdvertisement(advertisementCreateDto);
     }
 }

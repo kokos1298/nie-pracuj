@@ -3,19 +3,16 @@ package pl.niepracuj.service.advertisement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.niepracuj.exception.exceptions.EntityNotFoundException;
-import pl.niepracuj.exception.exceptions.ResourceNotFoundException;
-import pl.niepracuj.exception.messages.ExceptionMessages;
 import pl.niepracuj.model.dto.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.AdvertisementDto;
 import pl.niepracuj.model.entity.Advertisement;
-import pl.niepracuj.model.entity.Company;
 import pl.niepracuj.model.entity.Skill;
 import pl.niepracuj.model.mapper.AdvertisementMapper;
 import pl.niepracuj.model.mapper.SkillMapper;
 import pl.niepracuj.repository.*;
 
 import javax.transaction.Transactional;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +48,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public AdvertisementDto createAdvertisement(AdvertisementCreateDto createDto) {
         Advertisement advertisement = advertisementMapper.toNewEntity(createDto);
-        advertisement.setPublishDate(Instant.now());
+        advertisement.setPublishDate(LocalDateTime.now());
         advertisement.setCompany(companyRepository.findById(createDto.getCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("Company", createDto.getCompanyId())));
         advertisement.setTechnology(technologyRepository.findById(createDto.getTechnologyId())

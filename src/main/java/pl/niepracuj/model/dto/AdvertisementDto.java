@@ -2,7 +2,7 @@ package pl.niepracuj.model.dto;
 
 import lombok.*;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
@@ -17,9 +17,9 @@ public class AdvertisementDto { //dto do wypychania wszystkich elementow oglosze
 
     private String name;
 
-    private Instant publishDate;
+    private LocalDateTime publishDate;
 
-    private Instant expireDate;
+    private LocalDateTime expireDate;
 
     private Long salaryFrom;
 
