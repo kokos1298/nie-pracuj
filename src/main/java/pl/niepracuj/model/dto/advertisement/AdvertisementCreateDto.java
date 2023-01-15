@@ -1,7 +1,8 @@
-package pl.niepracuj.model.dto;
+package pl.niepracuj.model.dto.advertisement;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.niepracuj.model.dto.SkillCreateDto;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;

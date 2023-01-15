@@ -3,8 +3,9 @@ package pl.niepracuj.service.advertisement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.niepracuj.exception.exceptions.EntityNotFoundException;
-import pl.niepracuj.model.dto.AdvertisementCreateDto;
-import pl.niepracuj.model.dto.AdvertisementDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementCreateDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementDto;
+import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
 import pl.niepracuj.model.entity.Advertisement;
 import pl.niepracuj.model.entity.Skill;
 import pl.niepracuj.model.mapper.AdvertisementMapper;
@@ -42,6 +43,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public List<AdvertisementDto> getAllAdvertisements() {
         return advertisementRepository.findAll().stream().map(advertisementMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdvertisementDto> getAdvertisementsByCriteria(AdvertisementSearchCriteriaDto criteriaDto) {
+        var specification = new AdvertisementSpecification(criteriaDto);
+        return advertisementRepository.findAll(specification).stream().map(advertisementMapper::toDto)
                 .collect(Collectors.toList());
     }
 
