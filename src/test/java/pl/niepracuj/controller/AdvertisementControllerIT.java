@@ -27,6 +27,4 @@ public class AdvertisementControllerIT {
         mockMvc.perform(get("/adv/all")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", Matchers.equalTo(1)));
     }
-
-
 }

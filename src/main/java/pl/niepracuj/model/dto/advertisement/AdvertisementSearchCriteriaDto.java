@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.niepracuj.model.dto.SkillCreateDto;
 import pl.niepracuj.model.enums.SeniorityEnum;
+import pl.niepracuj.model.enums.TechnologyEnum;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class AdvertisementSearchCriteriaDto { // filtrowanie
     private Long salaryFrom;
     private Long salaryTo;
     private String companyName;
-    private String technologyName;
+    private TechnologyEnum technologyName;
     private SeniorityEnum seniorityName;
     private String cityName;
 

@@ -23,6 +23,6 @@ public class Company {
 
     private Integer size;
 
-    private Integer address;
+    private String address;
 
 }

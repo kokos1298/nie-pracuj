@@ -15,7 +15,7 @@ public class CompanyDto {
 
     private String email;
 
-    private Integer address;
+    private String address;
 
     private Integer size;
 }
