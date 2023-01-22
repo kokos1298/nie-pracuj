@@ -5,12 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
+import pl.niepracuj.model.enums.TechnologyEnum;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.niepracuj.util.TestUtils.toJson;
 
 
 @SpringBootTest
@@ -26,5 +31,22 @@ public class AdvertisementControllerIT {
         //when & then
         mockMvc.perform(get("/adv/all")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", Matchers.equalTo(1)));
+    }
+
+    @Test
+    public void whenGetAdvertisementsByCriteria_ThenOkResponse() throws Exception {
+
+        //given
+        var criteria=AdvertisementSearchCriteriaDto.builder()
+                .technologyName(TechnologyEnum.JAVA).build();
+        var criteriaJson = toJson(criteria);
+
+        //when & then
+        mockMvc.perform(post("/adv/search?page=0&size=10&sort=id,DESC")
+                        .content(criteriaJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()", Matchers.equalTo(1)));
+
     }
 }
