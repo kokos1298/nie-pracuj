@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
 import pl.niepracuj.model.entity.Advertisement;
+import pl.niepracuj.model.entity.Advertisement_;
+import pl.niepracuj.model.entity.City_;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -30,13 +32,13 @@ public class AdvertisementSpecification implements Specification<Advertisement> 
     //szukanie oferty po name
     private Predicate advertisementNameLike(Root<Advertisement> root, CriteriaBuilder criteriaBuilder) {
         return nonNull(criteriaDto.getName()) ?
-                criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + criteriaDto.getName().toLowerCase() + "%") :
+                criteriaBuilder.like(criteriaBuilder.lower(root.get(Advertisement_.NAME)), "%" + criteriaDto.getName().toLowerCase() + "%") : //to jest metamodel
                 alwaysTruePredicate(criteriaBuilder);
     }
 
     private Predicate cityLike(Root<Advertisement> root, CriteriaBuilder criteriaBuilder) {
         return nonNull(criteriaDto.getCityName()) ?
-                criteriaBuilder.like(criteriaBuilder.lower(root.get("city").get("name")), "%" + criteriaDto.getCityName().toLowerCase() + "%") :
+                criteriaBuilder.like(criteriaBuilder.lower(root.get(Advertisement_.CITY).get(City_.NAME)), "%" + criteriaDto.getCityName().toLowerCase() + "%") : //metamodel
                 alwaysTruePredicate(criteriaBuilder);
     }
 
