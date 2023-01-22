@@ -19,6 +19,7 @@
         <h2.version>2.1.214</h2.version>
         <mysql.version>8.0.31</mysql.version>
         <swagger.version>1.6.4</swagger.version>
+        <params.version>5.9.0</params.version>
     </properties>
     <dependencies>
         <dependency>
@@ -55,6 +56,13 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${params.version}</version>
             <scope>test</scope>
         </dependency>
 
