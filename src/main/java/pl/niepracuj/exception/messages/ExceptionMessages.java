@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ExceptionMessages {
 
-    ENTITY_FOR_PROVIDED_ID_NOT_FOUND("Encja %s dla podanego id: %s nie istnieje"); //strinf formatter za s mozna podstawic stringa
+    ENTITY_FOR_PROVIDED_ID_NOT_FOUND("Encja %s dla podanego id: %s nie istnieje"), //string formatter za s mozna podstawic stringa
+    USER_FOR_PROVIDED_USERNAME_NOT_FOUND("Użytkownik %s nie istnieje"); //$s tzn. uztkownika dany nie istnieje
 
     private final String message;
 

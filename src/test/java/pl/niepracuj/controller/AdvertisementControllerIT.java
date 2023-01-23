@@ -7,11 +7,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
@@ -62,7 +62,8 @@ public class AdvertisementControllerIT {
     @ParameterizedTest
     @ArgumentsSource(CriteriaProvider.class)
     @Sql("/sql/controller/advertisement.sql")
-    public void whenGetAdvertisementsByCriteriaParametrized_ThenOkResponse(TechnologyEnum technology,
+    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
+    public void whenGetAdvertisementsByCriteriaParametrized_thenOkResponse(TechnologyEnum technology,
                                                                            String city,
                                                                            SeniorityEnum seniority,
                                                                            int result) throws Exception {
