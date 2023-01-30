@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
 import pl.niepracuj.model.enums.SeniorityEnum;
@@ -30,20 +31,24 @@ import static pl.niepracuj.util.TestUtils.toJson;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@SqlGroup({
+        @Sql(scripts = "/sql/controller/advertisement.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(scripts = "/sql/controller/advertisement-cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+})
 public class AdvertisementControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
 
   @Test
-    @Sql("/sql/controller/advertisement.sql")
     public void whenGetAllAdvertisements_thenReturnAdvertisements() throws Exception {
         //when & then
         mockMvc.perform(get("/adv/all")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", Matchers.equalTo(1)));
+                .andExpect(jsonPath("$.size()", Matchers.equalTo(3)));
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
     public void whenGetAdvertisementsByCriteria_ThenOkResponse() throws Exception {
 
         //given
@@ -61,7 +66,6 @@ public class AdvertisementControllerIT {
     }
     @ParameterizedTest
     @ArgumentsSource(CriteriaProvider.class)
-    @Sql("/sql/controller/advertisement.sql")
     @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
     public void whenGetAdvertisementsByCriteriaParametrized_thenOkResponse(TechnologyEnum technology,
                                                                            String city,
@@ -89,10 +93,9 @@ public class AdvertisementControllerIT {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext)  {
             return Stream.of(
-                    Arguments.of(TechnologyEnum.JAVA, null, null, 2)
-//                    ,
-//                    Arguments.of(null, "Nowogrodziec", null, 1),
-//                    Arguments.of(null, null, SeniorityEnum.MID,1)
+                    Arguments.of(TechnologyEnum.JAVA, null, null, 2),
+                    Arguments.of(null, "Nowogrodziec", null, 1),
+                    Arguments.of(null, null, SeniorityEnum.MID,1)
 
             );
         }
