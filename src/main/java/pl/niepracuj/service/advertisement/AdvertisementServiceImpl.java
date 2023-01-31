@@ -49,6 +49,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
+    public List<AdvertisementDto> getAllAdvertisementsForCompany(Long companyId) {
+        return advertisementRepository.findByCompany_Id(companyId).stream().map(advertisementMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<AdvertisementDto> getAdvertisementsByCriteria(AdvertisementSearchCriteriaDto criteriaDto, Pageable pageable) {
         var specification = new AdvertisementSpecification(criteriaDto);
         Page<Advertisement> advertisements = advertisementRepository.findAll(specification, pageable);
