@@ -16,4 +16,5 @@ public class NiePracujApplication extends SpringBootServletInitializer {
         SpringApplication.run(NiePracujApplication.class, args);
     }
 
+
 }
