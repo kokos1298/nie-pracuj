@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.niepracuj.util.TestUtils.toJson;
+import static pl.niepracuj.util.TestUtils.toJsonString;
 
 //TODO Do naprawy ładowanie danych wejściowych
 
@@ -35,7 +35,7 @@ import static pl.niepracuj.util.TestUtils.toJson;
         @Sql(scripts = "/sql/controller/advertisement.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(scripts = "/sql/controller/advertisement-cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 })
-public class AdvertisementControllerIT {
+public class AdvertisementControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -54,7 +54,7 @@ public class AdvertisementControllerIT {
         //given
         var criteria=AdvertisementSearchCriteriaDto.builder()
                 .technologyName(TechnologyEnum.JAVA).build();
-        var criteriaJson = toJson(criteria);
+        var criteriaJson = toJsonString(criteria);
 
         //when & then
         mockMvc.perform(post("/adv/search?page=0&size=10&sort=id,DESC")
@@ -78,7 +78,7 @@ public class AdvertisementControllerIT {
                 .cityName(city)
                 .seniorityName(seniority)
                 .build();
-        var criteriaJson = toJson(criteria);
+        var criteriaJson = toJsonString(criteria);
 
         //when & then
         mockMvc.perform(post("/adv/search?page=0&size=10&sort=id,DESC")
