@@ -1,6 +1,5 @@
 package pl.niepracuj.controller
 
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -10,12 +9,14 @@ import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.jdbc.SqlGroup
 import org.springframework.test.web.servlet.MockMvc
 import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto
+import pl.niepracuj.model.entity.Advertisement
 import pl.niepracuj.model.enums.SeniorityEnum
 import pl.niepracuj.model.enums.TechnologyEnum
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static pl.niepracuj.util.TestUtils.jsonArrayStringToList
 import static pl.niepracuj.util.TestUtils.toJsonString
 
 @SpringBootTest
@@ -84,12 +85,13 @@ class AdvertisementControllerGroovyTest extends Specification {
                 .contentType(MediaType.APPLICATION_JSON)).andReturn().response
 
         expect:
-            toJsonString(response.contentAsString).size() == result
+        def list =  jsonArrayStringToList(response.contentAsString, Advertisement)
+        list.size() == result
 
         where:
             technology          | city              | seniority         | result
-            TechnologyEnum.JAVA | null              | null              | 1144
-            null                | "Nowogrodziec"    | null              | 619
+            TechnologyEnum.JAVA | null              | null              | 2
+            null                | "Nowogrodziec"    | null              | 1
 
     }
 }
