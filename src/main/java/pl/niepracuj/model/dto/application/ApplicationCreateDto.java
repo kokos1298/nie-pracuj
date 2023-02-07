@@ -1,4 +1,4 @@
-package pl.niepracuj.model.dto;
+package pl.niepracuj.model.dto.application;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
