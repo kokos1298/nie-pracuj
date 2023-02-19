@@ -7,7 +7,7 @@ import pl.niepracuj.model.dto.ApplicationDto;
 import pl.niepracuj.service.application.ApplicationService;
 
 import java.io.IOException;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/application")
 @RequiredArgsConstructor

@@ -8,7 +8,7 @@ import pl.niepracuj.model.dto.TechnologyDto;
 import pl.niepracuj.service.technology.TechnologyService;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/technology")
 @RequiredArgsConstructor

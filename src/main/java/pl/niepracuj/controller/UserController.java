@@ -9,7 +9,7 @@ import pl.niepracuj.service.level.LevelService;
 import pl.niepracuj.service.user.UserService;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor

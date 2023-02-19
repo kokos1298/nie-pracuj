@@ -22,7 +22,9 @@ public class LogServiceImpl implements LogService {
     public void sendLog(LogDto logDto) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(toJsonString(logDto)))
-                .uri(URI.create("/logs"))
+                .uri(URI.create("http://localhost:8082/logs"))
+                .setHeader("Accept", "application/json")
+                .header("Content-type", "application/json")
                 .build();
         httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
