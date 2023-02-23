@@ -3,6 +3,7 @@ package pl.niepracuj.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import pl.niepracuj.model.dto.LogDto;
 import pl.niepracuj.model.dto.advertisement.AdvertisementCreateDto;
 import pl.niepracuj.model.dto.advertisement.AdvertisementDto;
 import pl.niepracuj.model.dto.advertisement.AdvertisementSearchCriteriaDto;
@@ -13,6 +14,9 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Kontroler ogłoszeń
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/adv")
@@ -22,10 +26,17 @@ public class AdvertisementController {
     private final AdvertisementService advertisementService;
     private final LogService logService;
 
+    /**
+     * Endpoint do pobierania wszystkich ogłoszeń
+     * @return Lista ogłoszeń
+     * @throws IOException Wyjątek związany z wysyłaniem logów
+     * @throws InterruptedException Wyjątek związany z wysyłaniem logów
+     */
+
     @GetMapping("/all") //wybierze wszystkie
     public List<AdvertisementDto> getAdvertisements() throws IOException, InterruptedException {
         var response = advertisementService.getAllAdvertisements();
-       // logService.sendLog(LogDto.getLogDto("Pobrano wszystkie ogłoszenia"));
+        logService.sendLog(LogDto.getLogDto("Pobrano wszystkie ogłoszenia"));
         return response;
     }
 
